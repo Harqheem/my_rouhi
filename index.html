@@ -1336,21 +1336,25 @@ const starterMemories = [
 ];
 function addMemory(text) {
   const input = document.getElementById('memory-input');
-  const txt = text || input.value.trim();
+  const txt = text || (input ? input.value.trim() : '');
   if (!txt) return;
   const jar = document.getElementById('jar-visual');
-  document.getElementById('jar-empty').style.display = 'none';
+  if (!jar) return;
+  const emptyEl = document.getElementById('jar-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
   const note = document.createElement('div');
   note.className = 'memory-note';
   note.innerHTML = `<button class="note-del" onclick="this.parentElement.remove();updateJarCount()">✕</button>${txt}`;
   jar.appendChild(note);
-  input.value = '';
+  if (input) input.value = '';
   updateJarCount();
 }
 function updateJarCount() {
   const c = document.querySelectorAll('.memory-note').length;
-  document.getElementById('jar-count').textContent = c > 0 ? `${c} memor${c === 1 ? 'y' : 'ies'} saved ✦` : '';
-  if (c === 0) document.getElementById('jar-empty').style.display = 'block';
+  const countEl = document.getElementById('jar-count');
+  const emptyEl = document.getElementById('jar-empty');
+  if (countEl) countEl.textContent = c > 0 ? `${c} memor${c === 1 ? 'y' : 'ies'} saved ✦` : '';
+  if (emptyEl) emptyEl.style.display = c === 0 ? 'block' : 'none';
 }
 starterMemories.forEach(m => addMemory(m));
 
