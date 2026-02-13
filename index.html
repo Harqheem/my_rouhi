@@ -1440,13 +1440,13 @@ function launchConfetti() {
 //    or use a CC field. The template variables below match what we send.
 // 4. Copy your Public Key from Account > API Keys
 // Then replace the three placeholders below:
-const EMAILJS_PUBLIC_KEY  = 'PNaGx0uf3aRBuQPwI';    // e.g. "abc123XYZ"
-const EMAILJS_SERVICE_ID  = 'service_cp5no04';    // e.g. "service_xxxxxxx"
-const EMAILJS_TEMPLATE_ID = 'template_nyrh62h';   // e.g. "template_xxxxxxx"
+var EMAILJS_PUBLIC_KEY  = 'PNaGx0uf3aRBuQPwI';
+var EMAILJS_SERVICE_ID  = 'service_cp5no04';
+var EMAILJS_TEMPLATE_ID = 'template_nyrh62h';
 
 // Recipient emails (baked in — not exposed to user)
-const EMAIL_HIS = 'harqheem.s@gmail.com';
-const EMAIL_HER = 'temitopesakaakeem1@gmail.com';
+var EMAIL_HIS = 'harqheem.s@gmail.com';
+var EMAIL_HER = 'temitopesakaakeem1@gmail.com';
 
 function updateCharCount() {
   const len = document.getElementById('her-message').value.length;
@@ -1457,18 +1457,18 @@ async function sendHeartfeltMessage() {
   const msgEl  = document.getElementById('her-message');
   const btn    = document.getElementById('send-btn');
   const status = document.getElementById('msg-status');
-  const text   = msgEl.value.trim();
+  const msgText = msgEl.value.trim();
 
   status.className = 'msg-status';
   status.textContent = '';
 
-  if (!text) {
+  if (!msgText) {
     status.textContent = 'Please write your message before sending 💛';
     status.className = 'msg-status error show';
     return;
   }
 
-  if (text.length < 10) {
+  if (msgText.length < 10) {
     status.textContent = 'Your message is too short — write from the heart 🌹';
     status.className = 'msg-status error show';
     return;
@@ -1483,7 +1483,7 @@ async function sendHeartfeltMessage() {
 
   try {
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      her_message:  text,
+      her_message:  msgText,
       sent_date:    dateStr,
       sent_time:    timeStr,
       to_his_email: EMAIL_HIS,
