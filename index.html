@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Oyinkansola mi, My Soulmate ❤️</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Amiri:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 /* ═══════ VARIABLES ═══════════════════════════════════════════ */
 :root{
@@ -526,9 +527,9 @@ body:hover #cursor{background:var(--rose)}
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PAGE 8 — WISHES & DU'A  (final)
+   PAGE 7 — WISHES & DU'A  (final)
 ═══════════════════════════════════════════════════════════════ */
-#page-8{padding:60px 24px 140px;gap:0}
+#page-7{padding:60px 24px 140px;gap:0}
 
 .wishes-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
@@ -563,6 +564,85 @@ body:hover #cursor{background:var(--rose)}
   transition:all .3s;box-shadow:0 4px 16px rgba(192,57,43,.3)
 }
 .celebrate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.4)}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 8 — HER HEARTFELT MESSAGE
+═══════════════════════════════════════════════════════════════ */
+#page-8{padding:60px 24px 140px;gap:0}
+
+.message-form-wrap{
+  max-width:560px;width:100%;margin:28px auto 0;
+  background:rgba(255,255,255,.85);
+  border:1px solid rgba(200,169,81,.3);
+  border-radius:10px;padding:36px 32px;
+  box-shadow:0 8px 36px rgba(192,57,43,.1);
+  backdrop-filter:blur(8px);
+}
+.message-form-wrap .intro-text{
+  font-size:.94rem;font-style:italic;color:var(--muted);
+  line-height:1.9;text-align:center;margin-bottom:22px;
+}
+.msg-field-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.66rem;
+  letter-spacing:2.5px;color:var(--rose-soft);text-transform:uppercase;
+  margin-bottom:7px;display:block;
+}
+.msg-textarea{
+  width:100%;padding:14px 16px;
+  border:1px solid rgba(200,169,81,.3);border-radius:6px;
+  font-family:'Cormorant Garamond',serif;font-size:1.05rem;
+  background:rgba(255,255,255,.9);color:var(--dark);
+  resize:vertical;min-height:160px;line-height:1.85;
+  transition:border-color .3s,box-shadow .3s;
+}
+.msg-textarea:focus{
+  outline:none;border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(200,169,81,.13);
+}
+.mail-note{
+  font-family:'Josefin Sans',sans-serif;font-size:.64rem;
+  letter-spacing:1.5px;color:var(--muted-light);
+  text-align:center;margin:14px 0 20px;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  border:1px dashed rgba(200,169,81,.3);border-radius:4px;
+  padding:10px 14px;background:rgba(253,243,215,.45);
+}
+.mail-note span{font-size:.9rem}
+.msg-send-btn{
+  width:100%;background:linear-gradient(135deg,var(--rose),#a0261b);
+  color:white;border:none;
+  font-family:'Josefin Sans',sans-serif;font-size:.72rem;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:15px 30px;border-radius:5px;
+  transition:all .35s;
+  box-shadow:0 6px 22px rgba(192,57,43,.32);
+  margin-top:4px;
+}
+.msg-send-btn:hover:not(:disabled){
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(192,57,43,.42);
+}
+.msg-send-btn:disabled{
+  opacity:.6;transform:none;
+}
+.msg-status{
+  text-align:center;margin-top:18px;min-height:42px;
+  font-size:.94rem;font-style:italic;color:var(--muted);
+  line-height:1.7;opacity:0;transition:opacity .5s;
+}
+.msg-status.show{opacity:1}
+.msg-status.success{color:#2e7d4f}
+.msg-status.error{color:var(--rose)}
+
+.char-count{
+  font-family:'Josefin Sans',sans-serif;font-size:.62rem;
+  letter-spacing:1.5px;color:rgba(107,58,58,.4);
+  text-align:right;margin-top:5px;
+}
+.sent-heart{
+  font-size:2.4rem;display:block;text-align:center;
+  margin-bottom:10px;animation:hb 1.6s ease-in-out infinite;
+}
 
 /* ═══════ RESPONSIVE ═══════════════════════════════════════════ */
 @media(max-width:600px){
@@ -626,11 +706,12 @@ body:hover #cursor{background:var(--rose)}
   <button class="nav-btn" onclick="goTo(5)">Letter</button>
   <button class="nav-btn" onclick="goTo(6)">Quiz</button>
   <button class="nav-btn" onclick="goTo(7)">Du'a</button>
+  <button class="nav-btn" onclick="goTo(8)">Her Words</button>
 </nav>
 
 <button class="arrow" id="prev-btn" onclick="navigate(-1)">‹</button>
 <button class="arrow" id="next-btn" onclick="navigate(1)">›</button>
-<div class="pg-counter" id="pg-counter">1 / 7</div>
+<div class="pg-counter" id="pg-counter">1 / 8</div>
 
 <!-- ════════════════════════════════════════════════════════════
      PAGE 1 — COVER
@@ -921,11 +1002,54 @@ body:hover #cursor{background:var(--rose)}
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
+     PAGE 8 — HER HEARTFELT MESSAGE
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-a" id="page-8">
+  <div style="height:50px"></div>
+  <p class="sec-label">From Her Heart</p>
+  <h2 class="sec-title">Your <em>Words</em> to Me</h2>
+  <div class="divider"></div>
+
+  <div class="message-form-wrap">
+    <div class="bism" style="padding:0 0 16px">
+      <div class="arabic arabic-sm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    </div>
+
+    <p class="intro-text">
+      You have read everything I hold in my heart.<br>
+      Now it is your turn, <em>rouhi</em>.<br>
+      Share whatever is in yours — I am listening with everything I have. 🌹
+    </p>
+
+    <label class="msg-field-label" for="her-message">Your heartfelt message</label>
+    <textarea
+      id="her-message"
+      class="msg-textarea"
+      placeholder="Write freely, from the heart… every word is precious to me."
+      maxlength="2000"
+      oninput="updateCharCount()"
+    ></textarea>
+    <div class="char-count"><span id="char-count-display">0</span> / 2000</div>
+
+    <div class="mail-note">
+      <span>✉️</span>
+      A copy of your message will be sent to both our emails — yours &amp; mine — so we each carry it always.
+    </div>
+
+    <button class="msg-send-btn" id="send-btn" onclick="sendHeartfeltMessage()">
+      Send From My Heart ❤️
+    </button>
+
+    <div class="msg-status" id="msg-status"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
      JAVASCRIPT
 ════════════════════════════════════════════════════════════ -->
 <script>
 /* ══ STATE ═══════════════════════════════════════════════════ */
-let cur = 1, total = 7;
+let cur = 1, total = 8;
 
 /* ══ CUSTOM CURSOR ══════════════════════════════════════════ */
 const curEl = document.getElementById('cursor');
@@ -1303,6 +1427,84 @@ function launchConfetti() {
     else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
   cancelAnimationFrame(frame); draw();
+}
+
+
+/* ══ HER HEARTFELT MESSAGE ══════════════════════════════════ */
+// ─── EmailJS setup ───────────────────────────────────────────
+// You need to:
+// 1. Create a free account at https://www.emailjs.com
+// 2. Add an Email Service (Gmail recommended) — copy your Service ID
+// 3. Create an Email Template with variables: {{her_message}}, {{sender_name}}
+//    Make sure to send to BOTH emails in the "To Email" field of the template
+//    or use a CC field. The template variables below match what we send.
+// 4. Copy your Public Key from Account > API Keys
+// Then replace the three placeholders below:
+const EMAILJS_PUBLIC_KEY  = 'PNaGx0uf3aRBuQPwI';    // e.g. "abc123XYZ"
+const EMAILJS_SERVICE_ID  = 'service_cp5no04';    // e.g. "service_xxxxxxx"
+const EMAILJS_TEMPLATE_ID = 'template_nyrh62h';   // e.g. "template_xxxxxxx"
+
+// Recipient emails (baked in — not exposed to user)
+const EMAIL_HIS = 'harqheem.s@gmail.com';
+//const EMAIL_HER = 'mordiyahdolapo@gmail.com';
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+function updateCharCount() {
+  const len = document.getElementById('her-message').value.length;
+  document.getElementById('char-count-display').textContent = len;
+}
+
+async function sendHeartfeltMessage() {
+  const msgEl  = document.getElementById('her-message');
+  const btn    = document.getElementById('send-btn');
+  const status = document.getElementById('msg-status');
+  const text   = msgEl.value.trim();
+
+  status.className = 'msg-status';
+  status.textContent = '';
+
+  if (!text) {
+    status.textContent = 'Please write your message before sending 💛';
+    status.className = 'msg-status error show';
+    return;
+  }
+
+  if (text.length < 10) {
+    status.textContent = 'Your message is too short — write from the heart 🌹';
+    status.className = 'msg-status error show';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending… 🌙';
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const timeStr = now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      her_message:  text,
+      sent_date:    dateStr,
+      sent_time:    timeStr,
+      to_his_email: EMAIL_HIS,
+      to_her_email: EMAIL_HER,
+    });
+
+    msgEl.value = '';
+    updateCharCount();
+    btn.textContent = 'Message Sent ✓';
+    launchConfetti();
+    status.innerHTML = '<span class="sent-heart">💌</span>Jazākallāh khayran, my love — your words have reached my heart.<br>A copy has been sent to both our emails. ❤️';
+    status.className = 'msg-status success show';
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    btn.disabled = false;
+    btn.textContent = 'Send From My Heart ❤️';
+    status.textContent = 'Something went wrong. Please try again or send it directly to harqheem.s@gmail.com 💛';
+    status.className = 'msg-status error show';
+  }
 }
 
 /* ══ INIT ════════════════════════════════════════════════════ */
