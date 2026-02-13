@@ -743,7 +743,7 @@ body:hover #cursor{background:var(--rose)}
   </div>
 
   <p style="font-size:.76rem;color:rgba(107,58,58,.45);margin-top:20px;font-style:italic">
-    ← → arrows · swipe · or tap the nav below
+    ← → arrows · or tap the nav below
   </p>
 </section>
 
@@ -791,6 +791,14 @@ body:hover #cursor{background:var(--rose)}
         <div class="tl-icon">🤲</div>
         <div class="tl-head">Growing Together</div>
         <p class="tl-text">You remind me to pray harder, hope more, be better. In loving you, I found a path closer to Allah.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <div class="tl-icon">🌹</div>
+        <div class="tl-head">Our First Date · 17 Jan 2026</div>
+        <p class="tl-text">The day words became real. We met, and the world felt quieter — like Allah had pressed pause just so we could find each other properly.</p>
       </div>
     </div>
     <div class="tl-item">
@@ -993,6 +1001,9 @@ body:hover #cursor{background:var(--rose)}
     <div class="wish-card"><div class="wish-num">04</div><p class="wish-text"><strong>A life of barakah</strong> — May everything you touch be blessed — your time, health, dreams, and rizq.</p></div>
     <div class="wish-card"><div class="wish-num">05</div><p class="wish-text"><strong>Us, in Jannah</strong> — My greatest wish — that Allah gathers us under His shade in the gardens of Paradise, forever.</p></div>
     <div class="wish-card"><div class="wish-num">06</div><p class="wish-text"><strong>Every kind of happiness</strong> — Simply — I want you to be happy. Truly, deeply, beautifully happy. Always.</p></div>
+    <div class="wish-card"><div class="wish-num">07</div><p class="wish-text"><strong>Your final year exams</strong> — May Allah make every paper easy, steady your hands, and let your hard work bloom into the results you deserve. You are so close.</p></div>
+    <div class="wish-card"><div class="wish-num">08</div><p class="wish-text"><strong>Dr. Mardiyyah</strong> — May Allah crown your years of study with success and make you a Laboratory Scientist whose work is a sadaqah — healing people, honouring Him.</p></div>
+    <div class="wish-card"><div class="wish-num">09</div><p class="wish-text"><strong>MbolaPrime 🌸</strong> — May Allah send barakah into every piece of jewellery and every bottle of perfume you sell. May your business grow, your rizq expand, and your name become one people trust.</p></div>
   </div>
 
   <div class="closing-dua">
@@ -1134,9 +1145,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
   if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')  navigate(-1);
 });
-let tx = 0;
-document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-document.addEventListener('touchend',   e => { if (Math.abs(e.changedTouches[0].clientX - tx) > 50) navigate(e.changedTouches[0].clientX < tx ? 1 : -1); }, { passive: true });
+
 
 /* ══ TYPEWRITER ═════════════════════════════════════════════ */
 const twLines = [
