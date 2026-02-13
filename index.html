@@ -1,1 +1,1339 @@
-<h1>NEW LOVE MESSAGE</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Oyinkansola mi, My Soulmate ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Amiri:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════ VARIABLES ═══════════════════════════════════════════ */
+:root{
+  --rose:#c0392b; --rose-soft:#e8847c; --rose-pale:#fce8e6;
+  --gold:#c8a951; --gold-light:#f0d98a; --gold-pale:#fdf3d7;
+  --cream:#fdf6ec; --white:#ffffff;
+  --dark:#1a0a0a; --muted:#6b3a3a; --muted-light:#9b6060;
+}
+
+/* ═══════ RESET ════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:var(--cream); color:var(--dark);
+  min-height:100vh; overflow-x:hidden;
+  cursor:none; /* custom cursor */
+}
+button{cursor:none}
+
+/* ═══════ CUSTOM CURSOR ════════════════════════════════════════ */
+#cursor{
+  position:fixed;width:18px;height:18px;
+  background:var(--rose);border-radius:50%;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.12s ease, background 0.2s;
+  mix-blend-mode:multiply;
+}
+#cursor-trail{
+  position:fixed;width:36px;height:36px;
+  border:1.5px solid rgba(192,57,43,0.4);border-radius:50%;
+  pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:left 0.18s ease,top 0.18s ease;
+}
+body:hover #cursor{background:var(--rose)}
+
+/* ═══════ HEART TRAIL CANVAS ═══════════════════════════════════ */
+#heart-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:9997;
+}
+
+/* ═══════ FALLING PETALS ═══════════════════════════════════════ */
+.petals{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden}
+.petal{position:absolute;top:-40px;animation:fall linear infinite;opacity:.55}
+.petal:nth-child(1){left:5%;animation-duration:9s;animation-delay:0s;font-size:14px}
+.petal:nth-child(2){left:15%;animation-duration:11s;animation-delay:2s;font-size:18px}
+.petal:nth-child(3){left:25%;animation-duration:8s;animation-delay:5s;font-size:12px}
+.petal:nth-child(4){left:35%;animation-duration:10s;animation-delay:1s;font-size:16px}
+.petal:nth-child(5){left:50%;animation-duration:12s;animation-delay:3s;font-size:20px}
+.petal:nth-child(6){left:62%;animation-duration:9s;animation-delay:6s;font-size:14px}
+.petal:nth-child(7){left:72%;animation-duration:11s;animation-delay:.5s;font-size:16px}
+.petal:nth-child(8){left:82%;animation-duration:8s;animation-delay:4s;font-size:12px}
+.petal:nth-child(9){left:91%;animation-duration:10s;animation-delay:2.5s;font-size:18px}
+.petal:nth-child(10){left:43%;animation-duration:7s;animation-delay:7s;font-size:10px}
+@keyframes fall{
+  0%{transform:translateY(-40px) rotate(0deg);opacity:0}
+  10%{opacity:.55}90%{opacity:.3}
+  100%{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* ═══════ CONFETTI CANVAS ══════════════════════════════════════ */
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+
+/* ═══════ PAGE SYSTEM ══════════════════════════════════════════ */
+.page{display:none;min-height:100vh;position:relative;z-index:2;animation:fadeUp .65s ease both}
+.page.active{display:flex;flex-direction:column;align-items:center}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════ BOTTOM NAV ═══════════════════════════════════════════ */
+.nav{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:1000;
+  background:rgba(26,10,10,.88);backdrop-filter:blur(14px);
+  border:1px solid rgba(200,169,81,.35);border-radius:50px;
+  padding:9px 16px;
+  box-shadow:0 8px 32px rgba(192,57,43,.25);
+}
+.nav-btn{
+  background:none;border:none;
+  font-family:'Josefin Sans',sans-serif;
+  font-size:10px;font-weight:300;letter-spacing:1.5px;
+  color:rgba(240,217,138,.5);
+  padding:5px 11px;border-radius:30px;
+  transition:all .3s;text-transform:uppercase;
+}
+.nav-btn:hover,.nav-btn.active{color:var(--gold-light);background:rgba(200,169,81,.14)}
+.nav-btn.active{color:var(--gold)}
+
+/* ═══════ ARROWS ═══════════════════════════════════════════════ */
+.arrow{
+  position:fixed;top:50%;transform:translateY(-50%);
+  background:rgba(26,10,10,.72);border:1px solid rgba(200,169,81,.3);
+  color:var(--gold-light);width:42px;height:42px;border-radius:50%;
+  font-size:20px;display:flex;align-items:center;justify-content:center;
+  z-index:1000;transition:all .3s;backdrop-filter:blur(8px);
+}
+.arrow:hover{background:rgba(200,169,81,.18);transform:translateY(-50%) scale(1.1)}
+#prev-btn{left:14px}#next-btn{right:14px}
+
+/* ═══════ PAGE COUNTER ═════════════════════════════════════════ */
+.pg-counter{
+  position:fixed;top:18px;right:20px;z-index:1000;
+  font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:2px;
+  color:rgba(200,169,81,.65);
+}
+
+/* ═══════ MUSIC TOGGLE ═════════════════════════════════════════ */
+#music-btn{
+  position:fixed;top:16px;left:18px;z-index:1000;
+  background:rgba(26,10,10,.78);border:1px solid rgba(200,169,81,.3);
+  color:var(--gold);border-radius:50%;width:40px;height:40px;
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:all .3s;backdrop-filter:blur(8px);
+}
+#music-btn:hover{background:rgba(200,169,81,.15)}
+
+/* ═══════ SHARED COMPONENTS ════════════════════════════════════ */
+.sec-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.66rem;
+  letter-spacing:4px;color:var(--rose-soft);text-transform:uppercase;
+  text-align:center;margin-bottom:10px
+}
+.sec-title{
+  font-size:clamp(2rem,6vw,3.2rem);font-weight:300;
+  text-align:center;line-height:1.15;margin-bottom:8px
+}
+.sec-title em{font-style:italic;color:var(--rose)}
+.divider{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto}
+.arabic{font-family:'Amiri',serif;font-size:1.4rem;color:var(--gold);direction:rtl;text-align:center;line-height:2.2}
+.arabic-sm{font-size:1.05rem}
+.transl{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--muted);text-align:center;letter-spacing:.4px}
+
+.bism{text-align:center;padding:22px 20px 0}
+
+/* bg patterns */
+.bg-a{background:radial-gradient(ellipse at 30% 20%,rgba(192,57,43,.1) 0,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(200,169,81,.09) 0,transparent 60%),var(--cream)}
+.bg-b{background:radial-gradient(ellipse at 80% 10%,rgba(200,169,81,.09) 0,transparent 50%),var(--cream)}
+.bg-c{background:radial-gradient(ellipse at 20% 80%,rgba(192,57,43,.08) 0,transparent 50%),var(--cream)}
+.bg-d{background:radial-gradient(ellipse at 50% 0%,rgba(200,169,81,.13) 0,transparent 55%),var(--cream)}
+.bg-e{background:radial-gradient(ellipse at 60% 30%,rgba(192,57,43,.07) 0,transparent 55%),var(--cream)}
+.bg-f{background:radial-gradient(ellipse at 30% 70%,rgba(200,169,81,.1) 0,transparent 55%),radial-gradient(ellipse at 70% 20%,rgba(192,57,43,.07) 0,transparent 50%),var(--cream)}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 1 — COVER  (interactive: click-to-reveal, typewriter)
+═══════════════════════════════════════════════════════════════ */
+#page-1{justify-content:center;padding:60px 24px 120px;text-align:center;gap:0}
+#page-1.bg-a{width:100%}
+
+.cover-heart{
+  font-size:56px;animation:hb 1.6s ease-in-out infinite;
+  filter:drop-shadow(0 0 22px rgba(192,57,43,.55));margin-bottom:8px;
+  transition:transform .3s;
+}
+.cover-heart:hover{transform:scale(1.3) rotate(-10deg)}
+@keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}42%{transform:scale(1.13)}56%{transform:scale(1)}}
+
+.cover-title{
+  font-size:clamp(2.8rem,8vw,5rem);font-weight:300;
+  line-height:1.1;letter-spacing:-1px;margin:14px 0 4px
+}
+.cover-title em{font-style:italic;color:var(--rose)}
+.cover-sub{
+  font-family:'Josefin Sans',sans-serif;font-size:.72rem;
+  font-weight:200;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;margin:8px 0 20px
+}
+#typewriter{
+  max-width:460px;font-size:1.1rem;font-style:italic;
+  color:var(--muted);line-height:2;margin:0 auto 28px;min-height:80px
+}
+#typewriter-cursor{
+  display:inline-block;width:2px;height:1.1em;
+  background:var(--rose);vertical-align:text-bottom;
+  animation:blink .75s step-end infinite
+}
+@keyframes blink{50%{opacity:0}}
+
+.cover-btn{
+  background:var(--dark);color:var(--gold-light);
+  border:1px solid rgba(200,169,81,.4);
+  font-family:'Josefin Sans',sans-serif;font-size:.7rem;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:13px 34px;border-radius:3px;
+  transition:all .4s;
+  box-shadow:0 4px 20px rgba(192,57,43,.22);
+  margin-top:8px
+}
+.cover-btn:hover{background:var(--rose);color:var(--cream);transform:translateY(-3px);box-shadow:0 10px 30px rgba(192,57,43,.4)}
+
+/* ── LOVE METER ── */
+.love-meter-wrap{margin:24px auto 0;text-align:center;max-width:340px}
+.love-meter-label{font-family:'Josefin Sans',sans-serif;font-size:.65rem;letter-spacing:3px;color:var(--muted-light);text-transform:uppercase;margin-bottom:8px}
+.love-meter-track{
+  width:100%;height:10px;background:rgba(192,57,43,.12);
+  border-radius:10px;overflow:hidden;border:1px solid rgba(200,169,81,.2)
+}
+.love-meter-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--rose-soft),var(--rose),var(--gold));
+  border-radius:10px;transition:width 2.5s cubic-bezier(.4,0,.2,1);
+}
+.love-meter-pct{font-size:1.2rem;font-style:italic;color:var(--rose);margin-top:6px}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 2 — OUR STORY  (timeline, same as before + scroll reveal)
+═══════════════════════════════════════════════════════════════ */
+#page-2{padding:60px 24px 140px;gap:0}
+
+.timeline{max-width:580px;width:100%;position:relative;margin:28px auto 0}
+.timeline::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,transparent,var(--gold),transparent);
+  transform:translateX(-50%)
+}
+.tl-item{
+  display:flex;align-items:flex-start;gap:22px;
+  margin-bottom:32px;position:relative;
+  opacity:0;transform:translateX(-22px);transition:all .55s ease
+}
+.tl-item.vis{opacity:1;transform:translateX(0)}
+.tl-item:nth-child(even){flex-direction:row-reverse;transform:translateX(22px)}
+.tl-item:nth-child(even).vis{transform:translateX(0)}
+.tl-dot{
+  width:13px;height:13px;border-radius:50%;
+  background:var(--rose);border:2px solid var(--gold);
+  flex-shrink:0;margin-top:6px;position:relative;z-index:2;
+  box-shadow:0 0 12px rgba(192,57,43,.4)
+}
+.tl-box{
+  background:rgba(255,255,255,.78);border:1px solid rgba(200,169,81,.22);
+  border-radius:5px;padding:15px 18px;flex:1;max-width:210px;
+  backdrop-filter:blur(4px);transition:transform .3s,box-shadow .3s
+}
+.tl-box:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(200,169,81,.15)}
+.tl-icon{font-size:1.4rem;margin-bottom:6px}
+.tl-head{font-size:.96rem;font-weight:600;color:var(--rose);margin-bottom:4px}
+.tl-text{font-size:.86rem;font-style:italic;color:var(--muted);line-height:1.75}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 3 — REASONS  (hover flip cards)
+═══════════════════════════════════════════════════════════════ */
+#page-3{padding:60px 24px 140px;gap:0}
+
+.flip-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;max-width:680px;width:100%;margin:28px auto 0
+}
+.flip-card{height:180px;perspective:900px}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;transition:transform .6s ease
+}
+.flip-card:hover .flip-inner,.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:6px;padding:20px 16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  border:1px solid rgba(200,169,81,.25);
+}
+.flip-front{background:white}
+.flip-back{
+  background:linear-gradient(135deg,rgba(192,57,43,.08),rgba(200,169,81,.1));
+  transform:rotateY(180deg);
+  border-color:rgba(192,57,43,.2)
+}
+.flip-icon{font-size:2.2rem;margin-bottom:10px}
+.flip-title{font-size:1rem;font-weight:600;color:var(--rose);margin-bottom:4px}
+.flip-short{font-size:.82rem;font-style:italic;color:var(--muted-light)}
+.flip-long{font-size:.88rem;font-style:italic;color:var(--muted);line-height:1.75}
+.flip-hint-txt{
+  font-family:'Josefin Sans',sans-serif;font-size:.62rem;
+  letter-spacing:2px;color:rgba(107,58,58,.4);
+  text-transform:uppercase;margin-top:14px;text-align:center
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 4 — ISLAMIC  (same du'a carousel + interactive du'a builder)
+═══════════════════════════════════════════════════════════════ */
+#page-4{padding:60px 24px 140px;gap:0}
+
+.quran-card{
+  max-width:580px;width:100%;background:white;
+  border:1px solid rgba(200,169,81,.3);border-radius:8px;
+  padding:34px 30px;text-align:center;position:relative;
+  margin:26px auto 0;box-shadow:0 4px 24px rgba(200,169,81,.1)
+}
+.quran-card::before,.quran-card::after{
+  content:'❧';position:absolute;color:var(--gold);font-size:1.7rem;opacity:.35
+}
+.quran-card::before{top:12px;left:16px}
+.quran-card::after{bottom:12px;right:16px;transform:rotate(180deg)}
+.v-arabic{font-family:'Amiri',serif;font-size:clamp(1.2rem,3.5vw,1.8rem);color:var(--dark);line-height:2.3;direction:rtl;margin-bottom:18px}
+.v-trans{font-size:.97rem;font-style:italic;color:var(--muted);line-height:1.9;margin-bottom:10px}
+.v-ref{font-family:'Josefin Sans',sans-serif;font-size:.68rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+
+.hadith-blk{
+  max-width:540px;width:100%;
+  border-left:3px solid var(--rose-soft);
+  padding:14px 18px;margin:22px auto 0
+}
+.hadith-t{font-size:.98rem;font-style:italic;color:var(--muted);line-height:1.9}
+.hadith-s{font-family:'Josefin Sans',sans-serif;font-size:.65rem;letter-spacing:2px;color:var(--rose-soft);margin-top:7px;text-transform:uppercase}
+
+/* Du'a carousel */
+.dua-car{max-width:560px;width:100%;margin:26px auto 0;text-align:center}
+.dua-s{display:none;animation:fadeUp .45s ease both}
+.dua-s.active{display:block}
+.dua-ctrl{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.dua-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(200,169,81,.28);border:none;
+  transition:background .3s
+}
+.dua-dot.active{background:var(--gold)}
+
+/* ── PERSONAL DU'A BUILDER ── */
+.dua-builder{
+  max-width:580px;width:100%;margin:28px auto 0;
+  background:rgba(255,255,255,.7);border:1px solid rgba(200,169,81,.25);
+  border-radius:8px;padding:26px 24px;text-align:center;
+  backdrop-filter:blur(6px)
+}
+.dua-builder h3{font-size:1rem;font-weight:600;color:var(--rose);margin-bottom:8px}
+.dua-builder p{font-size:.85rem;font-style:italic;color:var(--muted);margin-bottom:16px;line-height:1.8}
+#dua-input{
+  width:100%;padding:10px 14px;
+  border:1px solid rgba(200,169,81,.3);border-radius:4px;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;
+  background:rgba(255,255,255,.8);color:var(--dark);
+  margin-bottom:10px;resize:vertical;min-height:70px
+}
+#dua-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,169,81,.12)}
+#dua-output{
+  margin-top:14px;font-size:.96rem;font-style:italic;color:var(--muted);
+  line-height:1.9;min-height:48px;transition:opacity .4s;opacity:0
+}
+#dua-output.show{opacity:1}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 5 — LOVE LETTER  (scratch-to-reveal secret message)
+═══════════════════════════════════════════════════════════════ */
+#page-5{padding:60px 24px 140px;gap:0}
+
+.letter-paper{
+  max-width:540px;width:100%;background:white;
+  border:1px solid rgba(200,169,81,.2);border-radius:4px;
+  padding:46px 42px;position:relative;margin:26px auto 0;
+  box-shadow:0 2px 0 rgba(200,169,81,.14),0 4px 0 rgba(200,169,81,.09),0 8px 24px rgba(26,10,10,.07)
+}
+.letter-paper::before{
+  content:'';position:absolute;top:0;left:46px;right:46px;
+  height:1px;background:linear-gradient(90deg,transparent,rgba(200,169,81,.4),transparent)
+}
+.letter-sal{font-size:1.35rem;font-style:italic;color:var(--rose);margin-bottom:22px}
+.letter-body{font-size:.98rem;line-height:2;color:var(--dark)}
+.letter-body p{margin-bottom:16px}
+.letter-sig{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:var(--rose);margin-top:6px}
+
+/* ── SCRATCH CARD ── */
+.scratch-wrap{
+  max-width:540px;width:100%;margin:28px auto 0;
+  text-align:center
+}
+.scratch-label{
+  font-family:'Josefin Sans',sans-serif;font-size:.66rem;
+  letter-spacing:3px;color:var(--muted-light);text-transform:uppercase;
+  margin-bottom:12px
+}
+.scratch-container{
+  position:relative;border-radius:8px;overflow:hidden;
+  border:1px solid rgba(200,169,81,.3);
+  box-shadow:0 4px 20px rgba(200,169,81,.12)
+}
+#scratch-reveal{
+  padding:30px 28px;background:linear-gradient(135deg,#fff8ee,#fff);
+  font-size:1.05rem;font-style:italic;color:var(--muted);
+  line-height:2;min-height:120px;display:flex;align-items:center;justify-content:center;
+  text-align:center
+}
+#scratch-canvas{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  touch-action:none
+}
+.scratch-hint{
+  font-family:'Josefin Sans',sans-serif;font-size:.62rem;letter-spacing:2px;
+  color:rgba(107,58,58,.4);text-transform:uppercase;margin-top:10px;
+  animation:pulse 2s ease-in-out infinite
+}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 6 — LOVE QUIZ  (new!)
+═══════════════════════════════════════════════════════════════ */
+#page-6{padding:60px 24px 140px;gap:0}
+
+.quiz-card{
+  max-width:560px;width:100%;margin:28px auto 0;
+  background:white;border:1px solid rgba(200,169,81,.25);
+  border-radius:8px;padding:32px 28px;
+  box-shadow:0 4px 20px rgba(200,169,81,.1)
+}
+.quiz-progress-wrap{margin-bottom:20px}
+.quiz-progress-bar{
+  height:4px;background:rgba(200,169,81,.15);border-radius:4px;overflow:hidden
+}
+.quiz-progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--rose-soft),var(--gold));
+  border-radius:4px;transition:width .5s ease
+}
+.quiz-q-num{
+  font-family:'Josefin Sans',sans-serif;font-size:.65rem;
+  letter-spacing:2px;color:var(--muted-light);text-transform:uppercase;margin-top:6px
+}
+.quiz-question{
+  font-size:1.2rem;font-style:italic;color:var(--dark);
+  line-height:1.8;margin-bottom:24px
+}
+.quiz-options{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{
+  background:rgba(253,246,236,.6);
+  border:1.5px solid rgba(200,169,81,.22);
+  border-radius:4px;padding:12px 16px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:.97rem;color:var(--muted);
+  text-align:left;transition:all .3s
+}
+.quiz-opt:hover{background:var(--rose-pale);border-color:var(--rose-soft);color:var(--rose)}
+.quiz-opt.correct{background:#e8f5e9;border-color:#66bb6a;color:#2e7d32}
+.quiz-opt.wrong{background:#ffebee;border-color:var(--rose-soft);color:var(--rose)}
+.quiz-result{
+  text-align:center;display:none;animation:fadeUp .5s ease both
+}
+.quiz-score{
+  font-size:clamp(2.5rem,8vw,4.5rem);font-weight:300;
+  font-style:italic;color:var(--rose)
+}
+.quiz-result-msg{font-size:1.05rem;font-style:italic;color:var(--muted);line-height:1.9;margin:12px 0 20px}
+.quiz-restart{
+  background:var(--dark);color:var(--gold-light);
+  border:1px solid rgba(200,169,81,.35);
+  font-family:'Josefin Sans',sans-serif;font-size:.68rem;
+  letter-spacing:2.5px;text-transform:uppercase;
+  padding:11px 28px;border-radius:3px;transition:all .35s
+}
+.quiz-restart:hover{background:var(--rose);color:white}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 7 — MEMORY JAR  (new! click to add memories)
+═══════════════════════════════════════════════════════════════ */
+#page-7{padding:60px 24px 140px;gap:0}
+
+.jar-desc{
+  max-width:480px;font-size:.97rem;font-style:italic;
+  color:var(--muted);line-height:1.9;text-align:center;margin:12px auto 0
+}
+.memory-input-row{
+  display:flex;gap:10px;max-width:540px;width:100%;margin:22px auto 0
+}
+#memory-input{
+  flex:1;padding:11px 16px;
+  border:1px solid rgba(200,169,81,.3);border-radius:4px;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;
+  background:rgba(255,255,255,.85);color:var(--dark)
+}
+#memory-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,169,81,.12)}
+#memory-add-btn{
+  background:var(--rose);color:white;border:none;
+  padding:11px 20px;border-radius:4px;
+  font-family:'Josefin Sans',sans-serif;
+  font-size:.68rem;letter-spacing:2px;text-transform:uppercase;
+  transition:all .3s;white-space:nowrap
+}
+#memory-add-btn:hover{background:var(--dark);transform:translateY(-1px)}
+
+.jar-visual{
+  max-width:540px;width:100%;margin:24px auto 0;
+  min-height:260px;position:relative;
+  background:linear-gradient(180deg,rgba(253,246,236,0) 0%,rgba(255,248,235,.5) 100%);
+  border:1px solid rgba(200,169,81,.2);border-radius:0 0 80px 80px / 0 0 30px 30px;
+  border-top:none;padding:20px 16px 30px;
+  overflow:hidden
+}
+.jar-top{
+  max-width:540px;width:100%;
+  height:24px;background:rgba(200,169,81,.12);
+  border:1px solid rgba(200,169,81,.2);border-radius:6px 6px 0 0;
+  border-bottom:none;margin-top:4px
+}
+.jar-empty{
+  text-align:center;font-size:.9rem;font-style:italic;
+  color:rgba(107,58,58,.35);padding:40px 0
+}
+.memory-note{
+  background:white;border:1px solid rgba(200,169,81,.25);
+  border-radius:4px;padding:12px 14px;margin:8px 0;
+  font-size:.92rem;font-style:italic;color:var(--muted);
+  line-height:1.75;position:relative;
+  animation:noteIn .4s ease both;
+  box-shadow:0 2px 8px rgba(200,169,81,.1)
+}
+@keyframes noteIn{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.memory-note::before{
+  content:'🌹';position:absolute;top:10px;right:12px;font-size:.9rem;opacity:.5
+}
+.note-del{
+  background:none;border:none;color:rgba(192,57,43,.3);
+  font-size:.85rem;float:right;margin-left:8px;
+  transition:color .2s
+}
+.note-del:hover{color:var(--rose)}
+.jar-count{
+  font-family:'Josefin Sans',sans-serif;font-size:.62rem;
+  letter-spacing:2px;color:var(--gold);text-transform:uppercase;
+  text-align:center;margin-top:10px
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 8 — WISHES & DU'A  (final)
+═══════════════════════════════════════════════════════════════ */
+#page-8{padding:60px 24px 140px;gap:0}
+
+.wishes-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:15px;max-width:660px;width:100%;margin:26px auto 0
+}
+.wish-card{
+  background:white;border:1px solid rgba(200,169,81,.2);
+  border-radius:6px;padding:22px 16px;text-align:left;
+  transition:box-shadow .3s,transform .3s
+}
+.wish-card:hover{box-shadow:0 8px 24px rgba(200,169,81,.15);transform:translateY(-3px)}
+.wish-num{
+  font-family:'Cormorant Garamond',serif;font-size:2rem;
+  font-style:italic;color:rgba(200,169,81,.28);line-height:1;margin-bottom:6px
+}
+.wish-text{font-size:.9rem;font-style:italic;color:var(--muted);line-height:1.8}
+.wish-text strong{font-style:normal;color:var(--rose);font-size:.92rem}
+
+.closing-dua{
+  max-width:540px;margin:36px auto 0;text-align:center;
+  padding:30px;border:1px solid rgba(200,169,81,.3);
+  border-radius:8px;
+  background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(253,246,236,.5))
+}
+.closing-note{font-size:.94rem;font-style:italic;color:var(--muted);line-height:1.9;margin-top:12px}
+
+.celebrate-btn{
+  margin-top:18px;background:var(--rose);color:white;
+  border:none;font-family:'Josefin Sans',sans-serif;
+  font-size:.7rem;letter-spacing:2px;text-transform:uppercase;
+  padding:12px 26px;border-radius:3px;
+  transition:all .3s;box-shadow:0 4px 16px rgba(192,57,43,.3)
+}
+.celebrate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.4)}
+
+/* ═══════ RESPONSIVE ═══════════════════════════════════════════ */
+@media(max-width:600px){
+  .timeline::before{left:18px}
+  .tl-item{flex-direction:column !important;padding-left:40px}
+  .tl-dot{position:absolute;left:11px}
+  .tl-item:nth-child(even){transform:translateX(0)}
+  .tl-box{max-width:100%}
+  .letter-paper{padding:28px 20px}
+  .nav{gap:3px;padding:7px 10px}
+  .nav-btn{padding:4px 7px;font-size:9px;letter-spacing:1px}
+  .quran-card{padding:24px 18px}
+  .memory-input-row{flex-direction:column}
+}
+
+/* ─── TOOLTIP ─────────────────────────────────────────────── */
+.tooltip{
+  position:relative;display:inline-block
+}
+.tooltip .tip{
+  visibility:hidden;opacity:0;
+  background:var(--dark);color:var(--gold-light);
+  font-family:'Josefin Sans',sans-serif;font-size:.65rem;
+  letter-spacing:1px;padding:6px 10px;border-radius:3px;
+  position:absolute;bottom:130%;left:50%;transform:translateX(-50%);
+  white-space:nowrap;transition:opacity .25s;z-index:10
+}
+.tooltip:hover .tip{visibility:visible;opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ── CUSTOM CURSOR ─────────────────────────────────────────── -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- ── HEART TRAIL CANVAS ────────────────────────────────────── -->
+<canvas id="heart-canvas"></canvas>
+
+<!-- ── FALLING PETALS ────────────────────────────────────────── -->
+<div class="petals">
+  <span class="petal">🌹</span><span class="petal">❤️</span>
+  <span class="petal">🌸</span><span class="petal">✨</span>
+  <span class="petal">🌹</span><span class="petal">💛</span>
+  <span class="petal">🌸</span><span class="petal">❤️</span>
+  <span class="petal">🌹</span><span class="petal">✨</span>
+</div>
+
+<!-- ── CONFETTI ───────────────────────────────────────────────── -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ── MUSIC BUTTON ──────────────────────────────────────────── -->
+<button id="music-btn" onclick="toggleMusic()" title="Toggle music">🎵</button>
+
+<!-- ── NAV ───────────────────────────────────────────────────── -->
+<nav class="nav" id="main-nav">
+  <button class="nav-btn active" onclick="goTo(1)">Cover</button>
+  <button class="nav-btn" onclick="goTo(2)">Story</button>
+  <button class="nav-btn" onclick="goTo(3)">Reasons</button>
+  <button class="nav-btn" onclick="goTo(4)">Islam</button>
+  <button class="nav-btn" onclick="goTo(5)">Letter</button>
+  <button class="nav-btn" onclick="goTo(6)">Quiz</button>
+  <button class="nav-btn" onclick="goTo(7)">Jar</button>
+  <button class="nav-btn" onclick="goTo(8)">Du'a</button>
+</nav>
+
+<button class="arrow" id="prev-btn" onclick="navigate(-1)">‹</button>
+<button class="arrow" id="next-btn" onclick="navigate(1)">›</button>
+<div class="pg-counter" id="pg-counter">1 / 8</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 1 — COVER
+════════════════════════════════════════════════════════════ -->
+<section class="page active bg-a" id="page-1">
+  <div class="bism">
+    <div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <p class="transl">Bismillāhi r-raḥmāni r-raḥīm · In the name of Allah, the Most Gracious, the Most Merciful</p>
+  </div>
+  <div class="divider" style="margin:18px auto"></div>
+  <div class="cover-heart" id="cover-heart">❤️</div>
+  <h1 class="cover-title">My Heart,<br><em>My Noor</em></h1>
+  <p class="cover-sub">A love written by Allah's will</p>
+  <div class="divider"></div>
+  <p id="typewriter"><span id="tw-text"></span><span id="typewriter-cursor">|</span></p>
+  <button class="cover-btn" onclick="goTo(2)">Open My Heart ❤️</button>
+
+  <div class="love-meter-wrap">
+    <p class="love-meter-label">How much I love you</p>
+    <div class="love-meter-track"><div class="love-meter-fill" id="love-fill"></div></div>
+    <p class="love-meter-pct" id="love-pct">0%</p>
+  </div>
+
+  <p style="font-size:.76rem;color:rgba(107,58,58,.45);margin-top:20px;font-style:italic">
+    ← → arrows · swipe · or tap the nav below
+  </p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 2 — OUR STORY
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-b" id="page-2">
+  <div class="bism" style="margin-top:20px">
+    <div class="arabic arabic-sm">وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</div>
+    <p class="transl">"He placed between you affection and mercy." — Qur'an 30:21</p>
+  </div>
+  <div style="height:24px"></div>
+  <p class="sec-label">Chapter One</p>
+  <h2 class="sec-title">The Story of <em>Us</em></h2>
+  <div class="divider"></div>
+
+  <div class="timeline" id="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <div class="tl-icon">✨</div>
+        <div class="tl-head">The First Moment</div>
+        <p class="tl-text">The first time I saw you, something shifted quietly — like the sky just before Fajr, still and full of promise.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <div class="tl-icon">💬</div>
+        <div class="tl-head">First Conversations</div>
+        <p class="tl-text">Every word felt like discovering a new du'a — something I didn't know I needed until I heard it.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <div class="tl-icon">🌙</div>
+        <div class="tl-head">Late Nights & Laughter</div>
+        <p class="tl-text">Those nights we talked until the world went quiet — barakah in every shared laugh and gentle silence.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <div class="tl-icon">🤲</div>
+        <div class="tl-head">Growing Together</div>
+        <p class="tl-text">You reminded me to pray harder, hope more, be better. In loving you, I found a path closer to Allah.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <div class="tl-icon">💛</div>
+        <div class="tl-head">Today & Always</div>
+        <p class="tl-text">On this day I choose you — and I ask Allah to keep writing our story, in this world and the next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 3 — REASONS  (flip cards)
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-c" id="page-3">
+  <div style="height:50px"></div>
+  <p class="sec-label">Chapter Two</p>
+  <h2 class="sec-title"><em>Why</em> I Love You</h2>
+  <div class="divider"></div>
+  <p class="flip-hint-txt" style="margin-top:12px">✦ Tap each card to flip it ✦</p>
+
+  <div class="flip-grid">
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="flip-icon">🌿</div><div class="flip-title">Your Gentleness</div><p class="flip-short">Tap to read…</p></div>
+        <div class="flip-back"><p class="flip-long">The way you speak — soft and deliberate, like a verse recited with care. It stills every storm inside me.</p></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="flip-icon">🤲</div><div class="flip-title">Your Faith</div><p class="flip-short">Tap to read…</p></div>
+        <div class="flip-back"><p class="flip-long">Watching you turn to Allah in joy and in hardship is the most beautiful thing I have ever witnessed.</p></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="flip-icon">😄</div><div class="flip-title">Your Laugh</div><p class="flip-short">Tap to read…</p></div>
+        <div class="flip-back"><p class="flip-long">Your laughter is a mercy — it makes the whole world lighter and my heart impossibly full.</p></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="flip-icon">🧠</div><div class="flip-title">Your Mind</div><p class="flip-short">Tap to read…</p></div>
+        <div class="flip-back"><p class="flip-long">The way you think — deeply, curiously, carefully. You see what others overlook, and that amazes me every single day.</p></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="flip-icon">💪</div><div class="flip-title">Your Strength</div><p class="flip-short">Tap to read…</p></div>
+        <div class="flip-back"><p class="flip-long">You carry difficulty with grace. You are stronger than you know, and I am proud of you every day.</p></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="flip-icon">❤️</div><div class="flip-title">Simply You</div><p class="flip-short">Tap to read…</p></div>
+        <div class="flip-back"><p class="flip-long">Beyond all reasons — I love you because you are you. A gift from Allah I never deserve yet am endlessly grateful for.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 4 — ISLAMIC LOVE
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-d" id="page-4">
+  <div style="height:50px"></div>
+  <p class="sec-label">Chapter Three</p>
+  <h2 class="sec-title">Love Through <em>Islam</em></h2>
+  <div class="divider"></div>
+
+  <div class="quran-card">
+    <div class="v-arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</div>
+    <p class="v-trans">"And of His signs is that He created for you from yourselves mates that you may find tranquillity in them; and He placed between you affection and mercy."</p>
+    <p class="v-ref">Qur'an — Surah Ar-Rum 30:21</p>
+  </div>
+
+  <div class="hadith-blk">
+    <p class="hadith-t">"This verse is my favourite because it describes what I feel with you — <em>sakīnah</em>. Tranquillity. When I am with you, the noise of the world fades, and I am at peace. May Allah make us a sign of His mercy for each other."</p>
+    <p class="hadith-s">— A note for you, from my heart</p>
+  </div>
+
+  <!-- Du'a Carousel -->
+  <div style="height:22px"></div>
+  <p class="sec-label">Blessings I Ask For Us</p>
+  <div class="divider" style="margin-bottom:0"></div>
+  <div class="dua-car">
+    <div class="dua-s active">
+      <div class="arabic" style="margin:14px 0">اللَّهُمَّ بَارِكْ لَنَا فِي حُبِّنَا</div>
+      <p class="transl">Allāhumma bārik lanā fī ḥubbinā</p>
+      <p style="font-size:.9rem;font-style:italic;color:var(--muted);margin-top:8px;line-height:1.9">"O Allah, bless us in our love."</p>
+    </div>
+    <div class="dua-s">
+      <div class="arabic" style="margin:14px 0;font-size:1.1rem">رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ</div>
+      <p class="transl">Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata a'yun</p>
+      <p style="font-size:.9rem;font-style:italic;color:var(--muted);margin-top:8px;line-height:1.9">"Our Lord, grant us from among our spouses and offspring comfort to our eyes." <span style="color:var(--gold);font-size:.75rem">— Qur'an 25:74</span></p>
+    </div>
+    <div class="dua-s">
+      <div class="arabic" style="margin:14px 0">اللَّهُمَّ اجْمَعْنَا فِي الجَنَّةِ</div>
+      <p class="transl">Allāhumma ajma'nā fī l-jannah</p>
+      <p style="font-size:.9rem;font-style:italic;color:var(--muted);margin-top:8px;line-height:1.9">"O Allah, unite us in Paradise." <br><span style="font-size:.82rem">May this love not end at this world's edge — may it bloom in Jannah, forever.</span></p>
+    </div>
+    <div class="dua-ctrl">
+      <button class="dua-dot active" onclick="showDua(0)"></button>
+      <button class="dua-dot" onclick="showDua(1)"></button>
+      <button class="dua-dot" onclick="showDua(2)"></button>
+    </div>
+  </div>
+
+  <!-- Personal Du'a Builder -->
+  <div class="dua-builder">
+    <h3>✍️ Write Her a Personal Du'a</h3>
+    <p>Type something you wish for her and I'll wrap it in a beautiful du'a for you to send.</p>
+    <textarea id="dua-input" placeholder="e.g. happiness, good health, ease in her exams…"></textarea>
+    <button onclick="buildDua()" style="background:var(--dark);color:var(--gold-light);border:1px solid rgba(200,169,81,.35);font-family:'Josefin Sans',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;border-radius:3px;transition:all .3s" onmouseover="this.style.background='var(--rose)'" onmouseout="this.style.background='var(--dark)'">
+      Generate Du'a ✨
+    </button>
+    <div id="dua-output"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 5 — LOVE LETTER  + SCRATCH CARD
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-e" id="page-5">
+  <div style="height:50px"></div>
+  <p class="sec-label">Chapter Four</p>
+  <h2 class="sec-title">A Letter <em>From Me</em></h2>
+  <div class="divider"></div>
+
+  <div class="letter-paper">
+    <p class="letter-sal">My dearest, my light…</p>
+    <div class="letter-body">
+      <p>Bismillah. I begin with His name because everything beautiful in my life begins with Him — and you, you are the most beautiful thing He has ever trusted me with.</p>
+      <p>I want you to know that loving you has made me a better person. You make me want to be kinder, more patient, more grateful. You are the reminder I didn't know I was praying for.</p>
+      <p>On the hard days, when the world feels heavy, I think of your voice and something in me steadies. The Prophet ﷺ said <em>"the world is provision, and the best provision is a righteous companion."</em> You are that for me.</p>
+      <p>I don't have poetry grand enough to fully say what you mean to me. But I have sincerity — and I mean every single word here with every part of my heart.</p>
+      <p style="color:var(--rose);font-style:italic">Happy Valentine's Day, my darling. 🌹</p>
+    </div>
+    <div style="height:18px"></div>
+    <div class="divider" style="margin:0 0 16px"></div>
+    <p style="font-size:.8rem;color:var(--muted);font-style:italic">Yours, completely and sincerely,</p>
+    <div class="letter-sig">Forever Yours ❤️</div>
+  </div>
+
+  <!-- SCRATCH CARD -->
+  <div class="scratch-wrap">
+    <p class="scratch-label">✦ Scratch to reveal a secret message ✦</p>
+    <div class="scratch-container">
+      <div id="scratch-reveal">
+        <span id="secret-msg" style="display:none">
+          "You are my favourite person in every version of every life. If Allah blesses me with a thousand more years, I would spend every single one choosing you. I love you more than words have ever been able to hold — and I always, always will. 🌹"
+        </span>
+      </div>
+      <canvas id="scratch-canvas"></canvas>
+    </div>
+    <p class="scratch-hint" id="scratch-hint">👆 scratch here with your finger or mouse</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 6 — LOVE QUIZ
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-b" id="page-6">
+  <div style="height:50px"></div>
+  <p class="sec-label">Chapter Five</p>
+  <h2 class="sec-title">How Well Do You <em>Know Me?</em></h2>
+  <div class="divider"></div>
+  <p style="font-size:.95rem;font-style:italic;color:var(--muted);text-align:center;margin-top:10px;max-width:460px">A little quiz just for you — answer honestly and see how well you know the heart that loves you 💛</p>
+
+  <div class="quiz-card">
+    <div id="quiz-game">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="q-progress" style="width:0%"></div></div>
+        <p class="quiz-q-num" id="q-num">Question 1 of 6</p>
+      </div>
+      <p class="quiz-question" id="q-text"></p>
+      <div class="quiz-options" id="q-opts"></div>
+    </div>
+    <div class="quiz-result" id="quiz-result">
+      <div class="quiz-score" id="q-score"></div>
+      <p class="quiz-result-msg" id="q-msg"></p>
+      <div class="arabic arabic-sm" style="margin:10px 0">الحُبُّ لا يُقَاسُ بِالإِجَابَاتِ</div>
+      <p class="transl" style="margin-bottom:16px">"Love is not measured by answers." 💛</p>
+      <button class="quiz-restart" onclick="startQuiz()">Try Again ↺</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 7 — MEMORY JAR
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-c" id="page-7">
+  <div style="height:50px"></div>
+  <p class="sec-label">Chapter Six</p>
+  <h2 class="sec-title">Our <em>Memory Jar</em></h2>
+  <div class="divider"></div>
+  <p class="jar-desc">Every beautiful memory of ours, collected in one jar. I've added the first few — you can add your own too. 🫙</p>
+
+  <div class="memory-input-row">
+    <input id="memory-input" type="text" placeholder="Add a memory you cherish…" maxlength="140" onkeydown="if(event.key==='Enter')addMemory()"/>
+    <button id="memory-add-btn" onclick="addMemory()">Add ✦</button>
+  </div>
+
+  <div class="jar-top"></div>
+  <div class="jar-visual" id="jar-visual">
+    <p class="jar-empty" id="jar-empty" style="display:none">The jar is empty… add your first memory 🌹</p>
+  </div>
+  <p class="jar-count" id="jar-count"></p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PAGE 8 — WISHES & DU'A
+════════════════════════════════════════════════════════════ -->
+<section class="page bg-f" id="page-8">
+  <div style="height:50px"></div>
+  <p class="sec-label">Chapter Seven · The Final Page</p>
+  <h2 class="sec-title">My Wishes <em>For You</em></h2>
+  <div class="divider"></div>
+
+  <div class="wishes-grid">
+    <div class="wish-card"><div class="wish-num">01</div><p class="wish-text"><strong>Peace in your heart</strong> — May Allah fill you with sakīnah so deep that no worry can reach its roots.</p></div>
+    <div class="wish-card"><div class="wish-num">02</div><p class="wish-text"><strong>Answered du'as</strong> — May every prayer you have ever whispered in the dark find its way home to you.</p></div>
+    <div class="wish-card"><div class="wish-num">03</div><p class="wish-text"><strong>Ease after hardship</strong> — For every difficulty you have faced, may Allah reward you with double the ease.</p></div>
+    <div class="wish-card"><div class="wish-num">04</div><p class="wish-text"><strong>A life of barakah</strong> — May everything you touch be blessed — your time, health, dreams, and rizq.</p></div>
+    <div class="wish-card"><div class="wish-num">05</div><p class="wish-text"><strong>Us, in Jannah</strong> — My greatest wish — that Allah gathers us under His shade in the gardens of Paradise, forever.</p></div>
+    <div class="wish-card"><div class="wish-num">06</div><p class="wish-text"><strong>Every kind of happiness</strong> — Simply — I want you to be happy. Truly, deeply, beautifully happy. Always.</p></div>
+  </div>
+
+  <div class="closing-dua">
+    <p style="font-family:'Josefin Sans',sans-serif;font-size:.66rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">A Du'a For You</p>
+    <div class="arabic" style="font-size:clamp(1.1rem,3.5vw,1.5rem);line-height:2.2">اللَّهُمَّ أَعْطِهَا مَا تَتَمَنَّى، وَاجْعَلْهَا مِنْ أَهْلِ الجَنَّةِ</div>
+    <p class="transl" style="margin-top:6px">Allāhumma a'ṭihā mā tatammannā, waj'alhā min ahli l-jannah</p>
+    <p class="closing-note">"O Allah, give her what she longs for, and make her among the people of Paradise."</p>
+    <div style="height:14px"></div>
+    <div class="divider"></div>
+    <p style="font-size:.85rem;font-style:italic;color:var(--muted);margin-top:12px">Alhamdulillah for you. Every single day. ❤️</p>
+    <button class="celebrate-btn" onclick="launchConfetti()">🎉 Celebrate Our Love</button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+/* ══ STATE ═══════════════════════════════════════════════════ */
+let cur = 1, total = 8;
+
+/* ══ CUSTOM CURSOR ══════════════════════════════════════════ */
+const curEl = document.getElementById('cursor');
+const trailEl = document.getElementById('cursor-trail');
+document.addEventListener('mousemove', e => {
+  curEl.style.left = e.clientX + 'px';
+  curEl.style.top  = e.clientY + 'px';
+  setTimeout(() => {
+    trailEl.style.left = e.clientX + 'px';
+    trailEl.style.top  = e.clientY + 'px';
+  }, 80);
+});
+document.addEventListener('mousedown', () => { curEl.style.transform = 'translate(-50%,-50%) scale(1.6)'; });
+document.addEventListener('mouseup',   () => { curEl.style.transform = 'translate(-50%,-50%) scale(1)';   });
+
+/* ══ HEART TRAIL ════════════════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('heart-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+  const hearts = [];
+  document.addEventListener('mousemove', e => {
+    if (Math.random() > 0.7) {
+      hearts.push({ x: e.clientX, y: e.clientY, size: 6 + Math.random()*10, alpha: 1, vy: -1 - Math.random()*1.5, vx: (Math.random()-.5)*.8 });
+    }
+  });
+  function drawHeart(ctx, x, y, s) {
+    ctx.beginPath();
+    ctx.moveTo(x, y - s * .3);
+    ctx.bezierCurveTo(x, y - s, x - s, y - s, x - s, y - s * .3);
+    ctx.bezierCurveTo(x - s, y + s * .1, x, y + s * .5, x, y + s * .6);
+    ctx.bezierCurveTo(x, y + s * .5, x + s, y + s * .1, x + s, y - s * .3);
+    ctx.bezierCurveTo(x + s, y - s, x, y - s, x, y - s * .3);
+    ctx.closePath();
+  }
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = hearts.length - 1; i >= 0; i--) {
+      const h = hearts[i];
+      h.y += h.vy; h.x += h.vx; h.alpha -= 0.022;
+      if (h.alpha <= 0) { hearts.splice(i, 1); continue; }
+      ctx.save();
+      ctx.globalAlpha = h.alpha;
+      ctx.fillStyle = `hsl(${355 + Math.random()*15}, 70%, 60%)`;
+      drawHeart(ctx, h.x, h.y, h.size);
+      ctx.fill();
+      ctx.restore();
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ══ NAVIGATION ═════════════════════════════════════════════ */
+function goTo(n) {
+  if (n < 1 || n > total) return;
+  document.querySelector('.page.active')?.classList.remove('active');
+  const pg = document.getElementById('page-' + n);
+  pg.classList.add('active');
+  window.scrollTo(0, 0);
+  document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === n - 1));
+  document.getElementById('pg-counter').textContent = n + ' / ' + total;
+  document.getElementById('prev-btn').style.opacity = n === 1 ? '.25' : '1';
+  document.getElementById('next-btn').style.opacity = n === total ? '.25' : '1';
+  cur = n;
+  if (n === 1) startLoveMeter();
+  if (n === 2) animateTimeline();
+  if (n === 5) initScratch();
+  if (n === 6) startQuiz();
+}
+function navigate(d) { goTo(cur + d); }
+
+/* ══ KEYBOARD / SWIPE ═══════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')  navigate(-1);
+});
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend',   e => { if (Math.abs(e.changedTouches[0].clientX - tx) > 50) navigate(e.changedTouches[0].clientX < tx ? 1 : -1); }, { passive: true });
+
+/* ══ TYPEWRITER ═════════════════════════════════════════════ */
+const twLines = [
+  "They say that when Allah created two souls to find each other, He wrote their names side by side long before the world began.",
+  "Alhamdulillah — He wrote yours next to mine. 🌹"
+];
+let twLine = 0, twChar = 0, twEl = document.getElementById('tw-text');
+function typeWrite() {
+  if (twChar <= twLines[twLine].length) {
+    twEl.textContent = twLines.slice(0, twLine).join(' ') + (twLine > 0 ? ' ' : '') + twLines[twLine].slice(0, twChar);
+    twChar++;
+    setTimeout(typeWrite, 38);
+  } else if (twLine < twLines.length - 1) {
+    twLine++; twChar = 0;
+    setTimeout(typeWrite, 600);
+  }
+}
+setTimeout(typeWrite, 800);
+
+/* ══ LOVE METER ═════════════════════════════════════════════ */
+function startLoveMeter() {
+  const fill = document.getElementById('love-fill');
+  const pct  = document.getElementById('love-pct');
+  let v = 0;
+  fill.style.width = '0%'; pct.textContent = '0%';
+  const iv = setInterval(() => {
+    v++;
+    fill.style.width = v + '%';
+    pct.textContent = v < 100 ? v + '%' : '∞ — Immeasurable 💛';
+    if (v >= 100) clearInterval(iv);
+  }, 22);
+}
+setTimeout(startLoveMeter, 400);
+
+/* ══ TIMELINE ═══════════════════════════════════════════════ */
+function animateTimeline() {
+  document.querySelectorAll('.tl-item').forEach((el, i) => {
+    setTimeout(() => el.classList.add('vis'), i * 180);
+  });
+}
+
+/* ══ DU'A CAROUSEL ══════════════════════════════════════════ */
+let duaIdx = 0;
+function showDua(i) {
+  duaIdx = i;
+  document.querySelectorAll('.dua-s').forEach((s, j) => s.classList.toggle('active', j === i));
+  document.querySelectorAll('.dua-dot').forEach((d, j) => d.classList.toggle('active', j === i));
+}
+setInterval(() => { if (cur === 4) showDua((duaIdx + 1) % 3); }, 5200);
+
+/* ══ DU'A BUILDER ═══════════════════════════════════════════ */
+function buildDua() {
+  const val = document.getElementById('dua-input').value.trim();
+  if (!val) return;
+  const templates = [
+    `اللَّهُمَّ ارْزُقْهَا ${val} وَبَارِكْ لَهَا فِيهِ\n"O Allah, grant her ${val} and bless her in it."`,
+    `اللَّهُمَّ يَسِّرْ لَهَا ${val} وَاجْعَلْهُ خَيْرًا لَهَا\n"O Allah, make ${val} easy for her and make it good for her."`,
+    `اللَّهُمَّ أَعْطِهَا ${val} وَاجْعَلْهُ سَبَبًا لِرِضَاكَ\n"O Allah, give her ${val} and make it a means to Your pleasure."`
+  ];
+  const pick = templates[Math.floor(Math.random() * templates.length)];
+  const out = document.getElementById('dua-output');
+  out.innerHTML = pick.replace('\n', '<br><br><em style="font-size:.85rem;color:var(--gold)">').replace('$', '</em>');
+  // manually format
+  const parts = pick.split('\n');
+  out.innerHTML = `<div class="arabic arabic-sm" style="margin-bottom:8px;color:var(--dark)">${parts[0]}</div><em style="color:var(--gold)">${parts[1]}</em>`;
+  out.classList.add('show');
+}
+
+/* ══ SCRATCH CARD ═══════════════════════════════════════════ */
+let scratchDone = false;
+function initScratch() {
+  if (scratchDone) return;
+  const container = document.querySelector('.scratch-container');
+  const reveal    = document.getElementById('scratch-reveal');
+  const canvas    = document.getElementById('scratch-canvas');
+  const msg       = document.getElementById('secret-msg');
+  const hint      = document.getElementById('scratch-hint');
+  const ctx       = canvas.getContext('2d');
+
+  // size canvas to container
+  const rect = container.getBoundingClientRect();
+  canvas.width  = rect.width;
+  canvas.height = rect.height || 120;
+  reveal.style.minHeight = canvas.height + 'px';
+
+  // show placeholder text
+  reveal.innerHTML = '<span style="font-size:2rem;opacity:.25">🔒 Scratch to reveal</span>';
+
+  // Fill canvas with rose overlay
+  ctx.fillStyle = '#c0392b';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // Pattern on top
+  ctx.fillStyle = 'rgba(200,169,81,.25)';
+  for (let y = 0; y < canvas.height; y += 20) {
+    for (let x = 0; x < canvas.width; x += 20) {
+      ctx.fillText('♥', x, y);
+    }
+  }
+  ctx.globalCompositeOperation = 'destination-out';
+
+  let isDrawing = false, revealed = 0;
+
+  function scratch(x, y) {
+    ctx.beginPath();
+    ctx.arc(x, y, 28, 0, Math.PI * 2);
+    ctx.fill();
+    // check reveal %
+    revealed++;
+    if (revealed > 8 && !scratchDone) {
+      scratchDone = true;
+      setTimeout(() => {
+        canvas.style.transition = 'opacity .8s';
+        canvas.style.opacity = '0';
+        reveal.innerHTML = msg.textContent;
+        reveal.style.color = 'var(--muted)';
+        reveal.style.fontStyle = 'italic';
+        reveal.style.fontSize = '1rem';
+        reveal.style.lineHeight = '2';
+        hint.style.display = 'none';
+      }, 400);
+    }
+  }
+
+  function getXY(e) {
+    const r = canvas.getBoundingClientRect();
+    if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+
+  canvas.addEventListener('mousedown',  e => { isDrawing = true; const p = getXY(e); scratch(p.x, p.y); });
+  canvas.addEventListener('mousemove',  e => { if (isDrawing) { const p = getXY(e); scratch(p.x, p.y); } });
+  canvas.addEventListener('mouseup',    () => isDrawing = false);
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); const p = getXY(e); scratch(p.x, p.y); }, { passive: false });
+  canvas.addEventListener('touchmove',  e => { e.preventDefault(); const p = getXY(e); scratch(p.x, p.y); }, { passive: false });
+}
+
+/* ══ QUIZ ════════════════════════════════════════════════════ */
+const questions = [
+  { q: "What does 'Noor' (نور) mean — the name I called you by?", opts: ["Beauty","Light","Peace","Love"], ans: 1 },
+  { q: "Which Qur'anic verse talks about finding sakīnah (tranquillity) in a spouse?", opts: ["Al-Baqarah 2:187","Ar-Rum 30:21","An-Nur 24:30","Al-Furqan 25:74"], ans: 1 },
+  { q: "What Arabic word means 'blessing' in a relationship — used throughout this page?", opts: ["Sakīnah","Raḥmah","Barakah","Mawaddah"], ans: 2 },
+  { q: "What does the Prophet ﷺ describe as the best provision of this world?", opts: ["Wealth","A righteous companion","Good health","Knowledge"], ans: 1 },
+  { q: "What does 'Mawaddah' (مَوَدَّة) mean in Qur'an 30:21?", opts: ["Mercy","Patience","Affection","Purity"], ans: 2 },
+  { q: "If I ask Allah to grant you Jannah, which du'a am I making?", opts: ["اللَّهُمَّ بَارِكْ لَنَا","اللَّهُمَّ اجْمَعْنَا فِي الجَنَّةِ","رَبَّنَا هَبْ لَنَا","اللَّهُمَّ أَعْطِهَا"], ans: 1 },
+];
+let qIdx = 0, score = 0, answered = false;
+function startQuiz() {
+  qIdx = 0; score = 0; answered = false;
+  document.getElementById('quiz-game').style.display = 'block';
+  document.getElementById('quiz-result').style.display = 'none';
+  renderQ();
+}
+function renderQ() {
+  answered = false;
+  const q = questions[qIdx];
+  document.getElementById('q-progress').style.width = ((qIdx / questions.length) * 100) + '%';
+  document.getElementById('q-num').textContent = `Question ${qIdx + 1} of ${questions.length}`;
+  document.getElementById('q-text').textContent = q.q;
+  const opts = document.getElementById('q-opts');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => pickAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+function pickAnswer(i, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[qIdx];
+  if (i === q.ans) { score++; btn.classList.add('correct'); }
+  else { btn.classList.add('wrong'); document.querySelectorAll('.quiz-opt')[q.ans].classList.add('correct'); }
+  setTimeout(() => {
+    qIdx++;
+    if (qIdx < questions.length) renderQ();
+    else showQuizResult();
+  }, 1100);
+}
+function showQuizResult() {
+  document.getElementById('quiz-game').style.display = 'none';
+  const res = document.getElementById('quiz-result');
+  res.style.display = 'block';
+  document.getElementById('q-score').textContent = score + ' / ' + questions.length;
+  const msgs = [
+    "Every answer is wrong but your heart is always right 💛",
+    "A little more studying… but your love needs no grades 🌹",
+    "Not bad! You're paying attention 😊",
+    "Very good! You know me well 🤍",
+    "Mashā'Allah! You're amazing 🌙",
+    "Subhānallah — perfect score! You know my heart completely ❤️"
+  ];
+  document.getElementById('q-msg').textContent = msgs[Math.min(score, msgs.length - 1)];
+}
+
+/* ══ MEMORY JAR ═════════════════════════════════════════════ */
+const starterMemories = [
+  "The first time you made me smile just by being yourself 🌸",
+  "Every late-night conversation that felt like barakah ✨",
+  "The moment I knew — this person is my person 🤍",
+  "Your voice saying my name like it was the most important word 🌙"
+];
+function addMemory(text) {
+  const input = document.getElementById('memory-input');
+  const txt = text || input.value.trim();
+  if (!txt) return;
+  const jar = document.getElementById('jar-visual');
+  document.getElementById('jar-empty').style.display = 'none';
+  const note = document.createElement('div');
+  note.className = 'memory-note';
+  note.innerHTML = `<button class="note-del" onclick="this.parentElement.remove();updateJarCount()">✕</button>${txt}`;
+  jar.appendChild(note);
+  input.value = '';
+  updateJarCount();
+}
+function updateJarCount() {
+  const c = document.querySelectorAll('.memory-note').length;
+  document.getElementById('jar-count').textContent = c > 0 ? `${c} memor${c === 1 ? 'y' : 'ies'} saved ✦` : '';
+  if (c === 0) document.getElementById('jar-empty').style.display = 'block';
+}
+starterMemories.forEach(m => addMemory(m));
+
+/* ══ MUSIC (soft ambient tones via Web Audio) ════════════════ */
+let audioCtx = null, musicPlaying = false, gainNode = null, oscillators = [];
+function toggleMusic() {
+  const btn = document.getElementById('music-btn');
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    gainNode = audioCtx.createGain();
+    gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    gainNode.connect(audioCtx.destination);
+    // soft chord: A minor-ish
+    const freqs = [220, 261.63, 329.63, 392, 440];
+    freqs.forEach((f, i) => {
+      const osc = audioCtx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, audioCtx.currentTime);
+      const g2 = audioCtx.createGain();
+      g2.gain.setValueAtTime(0.6 - i * 0.08, audioCtx.currentTime);
+      osc.connect(g2); g2.connect(gainNode);
+      osc.start();
+      oscillators.push(osc);
+    });
+    musicPlaying = true;
+    btn.textContent = '🔊';
+  } else if (musicPlaying) {
+    gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+    musicPlaying = false; btn.textContent = '🔇';
+  } else {
+    gainNode.gain.setTargetAtTime(0.04, audioCtx.currentTime, 0.5);
+    musicPlaying = true; btn.textContent = '🔊';
+  }
+}
+
+/* ══ CONFETTI ════════════════════════════════════════════════ */
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  const COLORS = ['#c0392b','#e8847c','#c8a951','#f0d98a','#fdf6ec','#1a0a0a'];
+  const EMOJIS = ['❤️','🌹','✨','💛','🌸','💖'];
+  const parts = Array.from({length:160},() => ({
+    x: Math.random() * canvas.width,
+    y: -20 - Math.random() * 220,
+    vx: (Math.random()-.5) * 3.5,
+    vy: 2.5 + Math.random() * 4,
+    rot: Math.random() * Math.PI * 2,
+    rv: (Math.random()-.5) * .15,
+    size: 10 + Math.random() * 14,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    emoji: Math.random() > .45 ? EMOJIS[Math.floor(Math.random() * EMOJIS.length)] : null,
+    alpha: 1, decay: .004 + Math.random() * .005
+  }));
+  let frame;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    parts.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.rot += p.rv; p.alpha -= p.decay;
+      if (p.alpha <= 0) return; alive = true;
+      ctx.save(); ctx.globalAlpha = Math.max(0, p.alpha);
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      if (p.emoji) {
+        ctx.font = p.size + 'px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(p.emoji, 0, 0);
+      } else {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size/2, -p.size/4, p.size, p.size/2);
+      }
+      ctx.restore();
+    });
+    if (alive) frame = requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  cancelAnimationFrame(frame); draw();
+}
+
+/* ══ INIT ════════════════════════════════════════════════════ */
+document.getElementById('prev-btn').style.opacity = '.25';
+startQuiz(); // pre-load quiz
+</script>
+</body>
+</html>
