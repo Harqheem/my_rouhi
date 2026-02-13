@@ -1446,9 +1446,7 @@ const EMAILJS_TEMPLATE_ID = 'template_nyrh62h';   // e.g. "template_xxxxxxx"
 
 // Recipient emails (baked in — not exposed to user)
 const EMAIL_HIS = 'harqheem.s@gmail.com';
-//const EMAIL_HER = 'mordiyahdolapo@gmail.com';
-
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+const EMAIL_HER = 'temitopesakaakeem1@gmail.com';
 
 function updateCharCount() {
   const len = document.getElementById('her-message').value.length;
@@ -1490,6 +1488,7 @@ async function sendHeartfeltMessage() {
       sent_time:    timeStr,
       to_his_email: EMAIL_HIS,
       to_her_email: EMAIL_HER,
+      bcc_email:    EMAIL_HER,
     });
 
     msgEl.value = '';
@@ -1508,6 +1507,7 @@ async function sendHeartfeltMessage() {
 }
 
 /* ══ INIT ════════════════════════════════════════════════════ */
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 document.getElementById('prev-btn').style.opacity = '.25';
 startQuiz(); // pre-load quiz
 </script>
